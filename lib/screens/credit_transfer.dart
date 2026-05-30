@@ -34,8 +34,9 @@ class _CreditTransferState extends State<CreditTransfer> {
   final countryListController = Get.find<CountryListController>();
   LanguagesController languagesController = Get.put(LanguagesController());
   CurrencyController currencyController = Get.put(CurrencyController());
-  CustomRechargeController customRechargeController =
-      Get.put(CustomRechargeController());
+  CustomRechargeController customRechargeController = Get.put(
+    CustomRechargeController(),
+  );
   final box = GetStorage();
   int selectedIndex = 0;
 
@@ -47,19 +48,26 @@ class _CreditTransferState extends State<CreditTransfer> {
 
   final companyController = Get.find<CompanyController>();
 
-  ConversationController conversationController =
-      Get.put(ConversationController());
+  ConversationController conversationController = Get.put(
+    ConversationController(),
+  );
 
   Future<void> refresh() async {
-    final int totalPages = customhistoryController
-            .allorderlist.value.payload?.pagination!.totalPages ??
+    final int totalPages =
+        customhistoryController
+            .allorderlist
+            .value
+            .payload
+            ?.pagination!
+            .totalPages ??
         0;
     final int currentPage = customhistoryController.initialpage;
 
     // Prevent loading more pages if we've reached the last page
     if (currentPage >= totalPages) {
       print(
-          "End..........................................End.....................");
+        "End..........................................End.....................",
+      );
       return;
     }
 
@@ -116,9 +124,7 @@ class _CreditTransferState extends State<CreditTransfer> {
           elevation: 0.0,
           shadowColor: Colors.transparent,
           flexibleSpace: Container(
-            decoration: BoxDecoration(
-              color: Color(0xffF1F3FF),
-            ),
+            decoration: BoxDecoration(color: Color(0xffF1F3FF)),
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
@@ -145,9 +151,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                               ),
                             ),
                             child: Center(
-                              child: Icon(
-                                FontAwesomeIcons.chevronLeft,
-                              ),
+                              child: Icon(FontAwesomeIcons.chevronLeft),
                             ),
                           ),
                         ),
@@ -182,9 +186,7 @@ class _CreditTransferState extends State<CreditTransfer> {
 
         backgroundColor: Colors.white,
         body: Container(
-          decoration: BoxDecoration(
-            color: Color(0xffF1F3FF),
-          ),
+          decoration: BoxDecoration(color: Color(0xffF1F3FF)),
           height: screenHeight,
           width: screenWidth,
           child: Padding(
@@ -221,9 +223,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           height: 55,
                           decoration: BoxDecoration(
@@ -236,26 +236,24 @@ class _CreditTransferState extends State<CreditTransfer> {
                           ),
                           child: Row(
                             children: [
-                              SizedBox(
-                                width: 10,
-                              ),
+                              SizedBox(width: 10),
                               Expanded(
                                 flex: 5,
                                 child: Container(
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 0),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                    ),
                                     child: TextField(
                                       keyboardType: TextInputType.number,
                                       controller: customRechargeController
                                           .numberController,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
+                                      style: TextStyle(fontSize: 18),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: languagesController
-                                            .tr("PHONENUMBER"),
+                                        hintText: languagesController.tr(
+                                          "PHONENUMBER",
+                                        ),
                                         hintStyle: TextStyle(
                                           color: Colors.grey.shade600,
                                         ),
@@ -277,7 +275,8 @@ class _CreditTransferState extends State<CreditTransfer> {
                                     image: company != null
                                         ? DecorationImage(
                                             image: NetworkImage(
-                                                company.companyLogo ?? ''),
+                                              company.companyLogo ?? '',
+                                            ),
                                             fit: BoxFit.contain,
                                           )
                                         : null,
@@ -285,18 +284,17 @@ class _CreditTransferState extends State<CreditTransfer> {
                                   child: company == null
                                       ? Center(
                                           child: Icon(
-                                          Icons.image_not_supported,
-                                          color: Colors.transparent,
-                                        ))
+                                            Icons.image_not_supported,
+                                            color: Colors.transparent,
+                                          ),
+                                        )
                                       : null,
                                 );
                               }),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           height: 55,
                           width: screenWidth,
@@ -323,8 +321,9 @@ class _CreditTransferState extends State<CreditTransfer> {
                                         .amountController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          languagesController.tr("AMOUNT"),
+                                      hintText: languagesController.tr(
+                                        "AMOUNT",
+                                      ),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontSize: 18,
@@ -350,8 +349,8 @@ class _CreditTransferState extends State<CreditTransfer> {
                           ),
                           height: 50,
                           child: Obx(() {
-                            final convertedList =
-                                conversationController.getConvertedValues();
+                            final convertedList = conversationController
+                                .getConvertedValues();
 
                             if (convertedList.isEmpty) {
                               return Center(child: Text(""));
@@ -376,9 +375,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                                     ),
                                     Text(
                                       item['value'].toStringAsFixed(2),
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
+                                      style: TextStyle(fontSize: 15),
                                     ),
                                   ],
                                 ),
@@ -387,14 +384,19 @@ class _CreditTransferState extends State<CreditTransfer> {
                           }),
                         ),
                         DefaultButton(
-                          buttonName:
-                              languagesController.tr("SEND_TO_DESTINATION"),
+                          buttonName: languagesController.tr(
+                            "SEND_TO_DESTINATION",
+                          ),
                           mycolor: Color(0xff00AB55),
                           onpressed: () {
                             if (customRechargeController
-                                    .numberController.text.isEmpty ||
+                                    .numberController
+                                    .text
+                                    .isEmpty ||
                                 customRechargeController
-                                    .amountController.text.isEmpty) {
+                                    .amountController
+                                    .text
+                                    .isEmpty) {
                               Fluttertoast.showToast(
                                 msg: "Enter required data",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -410,17 +412,16 @@ class _CreditTransferState extends State<CreditTransfer> {
                                 builder: (context) {
                                   return AlertDialog(
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        17,
-                                      ),
+                                      borderRadius: BorderRadius.circular(17),
                                     ),
                                     contentPadding: EdgeInsets.zero,
                                     content: StatefulBuilder(
                                       builder: (context, setState) {
                                         return Container(
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(17),
+                                            borderRadius: BorderRadius.circular(
+                                              17,
+                                            ),
                                             color: Colors.white,
                                           ),
                                           height: 150,
@@ -432,12 +433,11 @@ class _CreditTransferState extends State<CreditTransfer> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                SizedBox(
-                                                  height: 8,
-                                                ),
+                                                SizedBox(height: 8),
                                                 Text(
                                                   languagesController.tr(
-                                                      "ARE_YOU_SURE_TO_TRANSFER"),
+                                                    "ARE_YOU_SURE_TO_TRANSFER",
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: 50,
@@ -449,202 +449,252 @@ class _CreditTransferState extends State<CreditTransfer> {
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(
-                                                                context);
+                                                              context,
+                                                            );
                                                             showDialog(
                                                               context: context,
-                                                              builder:
-                                                                  (context) {
+                                                              builder: (context) {
                                                                 return AlertDialog(
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
+                                                                  shape: RoundedRectangleBorder(
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                      17,
-                                                                    ),
+                                                                        BorderRadius.circular(
+                                                                          17,
+                                                                        ),
                                                                   ),
                                                                   contentPadding:
                                                                       EdgeInsets
                                                                           .zero,
-                                                                  content:
-                                                                      StatefulBuilder(
+                                                                  content: StatefulBuilder(
                                                                     builder:
-                                                                        (context,
-                                                                            setState) {
-                                                                      return Container(
-                                                                        height:
-                                                                            320,
-                                                                        width:
-                                                                            screenWidth,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(17),
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                        child:
-                                                                            Obx(
-                                                                          () => customRechargeController.isLoading.value == false && customRechargeController.loadsuccess.value == false
-                                                                              ? Column(
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  children: [
-                                                                                    SizedBox(
-                                                                                      height: 100,
-                                                                                      child: Lottie.asset('assets/loties/pin.json'),
-                                                                                    ),
-                                                                                    Container(
-                                                                                      height: 45,
-                                                                                      child: Obx(
-                                                                                        () => Row(
+                                                                        (
+                                                                          context,
+                                                                          setState,
+                                                                        ) {
+                                                                          return Container(
+                                                                            height:
+                                                                                320,
+                                                                            width:
+                                                                                screenWidth,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(
+                                                                                17,
+                                                                              ),
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                            child: Obx(
+                                                                              () =>
+                                                                                  customRechargeController.isLoading.value ==
+                                                                                          false &&
+                                                                                      customRechargeController.loadsuccess.value ==
+                                                                                          false
+                                                                                  ? Column(
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      children: [
+                                                                                        SizedBox(
+                                                                                          height: 100,
+                                                                                          child: Lottie.asset(
+                                                                                            'assets/loties/pin.json',
+                                                                                          ),
+                                                                                        ),
+                                                                                        Container(
+                                                                                          height: 45,
+                                                                                          child: Obx(
+                                                                                            () => Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  customRechargeController.isLoading.value ==
+                                                                                                              false &&
+                                                                                                          customRechargeController.loadsuccess.value ==
+                                                                                                              false
+                                                                                                      ? languagesController.tr(
+                                                                                                          "CONFIRM_YOUR_PIN",
+                                                                                                        )
+                                                                                                      : languagesController.tr(
+                                                                                                          "PLEASE_WAIT",
+                                                                                                        ),
+                                                                                                  style: TextStyle(
+                                                                                                    fontWeight: FontWeight.w600,
+                                                                                                    fontSize: 15,
+                                                                                                  ),
+                                                                                                ),
+                                                                                                SizedBox(
+                                                                                                  width: 7,
+                                                                                                ),
+                                                                                                customRechargeController.isLoading.value ==
+                                                                                                            true &&
+                                                                                                        customRechargeController.loadsuccess.value ==
+                                                                                                            true
+                                                                                                    ? Center(
+                                                                                                        child: CircularProgressIndicator(
+                                                                                                          color: Colors.black,
+                                                                                                        ),
+                                                                                                      )
+                                                                                                    : SizedBox(),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        // OTPInput(),
+                                                                                        Container(
+                                                                                          height: 40,
+                                                                                          width: 100,
+                                                                                          // color: Colors.red,
+                                                                                          child: TextField(
+                                                                                            focusNode: _focusNode,
+                                                                                            style: TextStyle(
+                                                                                              fontWeight: FontWeight.w600,
+                                                                                            ),
+                                                                                            controller: customRechargeController.pinController,
+                                                                                            maxLength: 4,
+                                                                                            textAlign: TextAlign.center,
+                                                                                            keyboardType: TextInputType.phone,
+                                                                                            decoration: InputDecoration(
+                                                                                              counterText: '',
+                                                                                              focusedBorder: UnderlineInputBorder(
+                                                                                                borderSide: BorderSide(
+                                                                                                  color: Colors.grey,
+                                                                                                  width: 2.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                              enabledBorder: UnderlineInputBorder(
+                                                                                                borderSide: BorderSide(
+                                                                                                  color: Colors.grey,
+                                                                                                  width: 2.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                              errorBorder: UnderlineInputBorder(
+                                                                                                borderSide: BorderSide(
+                                                                                                  color: Colors.grey,
+                                                                                                  width: 2.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                              focusedErrorBorder: UnderlineInputBorder(
+                                                                                                borderSide: BorderSide(
+                                                                                                  color: Colors.grey,
+                                                                                                  width: 2.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+
+                                                                                        SizedBox(
+                                                                                          height: 30,
+                                                                                        ),
+
+                                                                                        Row(
                                                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                                                           children: [
-                                                                                            Text(
-                                                                                              customRechargeController.isLoading.value == false && customRechargeController.loadsuccess.value == false ? languagesController.tr("CONFIRM_YOUR_PIN") : languagesController.tr("PLEASE_WAIT"),
-                                                                                              style: TextStyle(
-                                                                                                fontWeight: FontWeight.w600,
-                                                                                                fontSize: 15,
+                                                                                            GestureDetector(
+                                                                                              onTap: () {
+                                                                                                Navigator.pop(
+                                                                                                  context,
+                                                                                                );
+                                                                                                customRechargeController.pinController.clear();
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                height: 50,
+                                                                                                width: 120,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(
+                                                                                                    width: 1,
+                                                                                                    color: Colors.grey,
+                                                                                                  ),
+                                                                                                  borderRadius: BorderRadius.circular(
+                                                                                                    5,
+                                                                                                  ),
+                                                                                                ),
+                                                                                                child: Center(
+                                                                                                  child: Text(
+                                                                                                    languagesController.tr(
+                                                                                                      "CANCEL",
+                                                                                                    ),
+                                                                                                    style: TextStyle(
+                                                                                                      color: Colors.black,
+                                                                                                      fontWeight: FontWeight.w500,
+                                                                                                      fontSize: 15,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
                                                                                               ),
                                                                                             ),
                                                                                             SizedBox(
-                                                                                              width: 7,
+                                                                                              width: 10,
                                                                                             ),
-                                                                                            customRechargeController.isLoading.value == true && customRechargeController.loadsuccess.value == true
-                                                                                                ? Center(
-                                                                                                    child: CircularProgressIndicator(
-                                                                                                      color: Colors.black,
+                                                                                            GestureDetector(
+                                                                                              onTap: () async {
+                                                                                                if (!customRechargeController.isLoading.value) {
+                                                                                                  if (customRechargeController.pinController.text.isEmpty ||
+                                                                                                      customRechargeController.pinController.text.length !=
+                                                                                                          4) {
+                                                                                                    Fluttertoast.showToast(
+                                                                                                      msg: languagesController.tr(
+                                                                                                        "ENTER_YOUR_PIN",
+                                                                                                      ),
+                                                                                                      toastLength: Toast.LENGTH_SHORT,
+                                                                                                      gravity: ToastGravity.BOTTOM,
+                                                                                                      timeInSecForIosWeb: 1,
+                                                                                                      backgroundColor: Colors.black,
+                                                                                                      textColor: Colors.white,
+                                                                                                      fontSize: 16.0,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    await customRechargeController.verify(
+                                                                                                      context,
+                                                                                                    );
+                                                                                                    if (customRechargeController.loadsuccess.value ==
+                                                                                                        true) {
+                                                                                                      print(
+                                                                                                        "recharge Done...........",
+                                                                                                      );
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                height: 60,
+                                                                                                width: 120,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.green,
+                                                                                                  border: Border.all(
+                                                                                                    width: 1,
+                                                                                                    color: Colors.grey,
+                                                                                                  ),
+                                                                                                  borderRadius: BorderRadius.circular(
+                                                                                                    5,
+                                                                                                  ),
+                                                                                                ),
+                                                                                                child: Center(
+                                                                                                  child: Text(
+                                                                                                    languagesController.tr(
+                                                                                                      "VERIFY",
                                                                                                     ),
-                                                                                                  )
-                                                                                                : SizedBox(),
+                                                                                                    style: TextStyle(
+                                                                                                      color: Colors.white,
+                                                                                                      fontWeight: FontWeight.w500,
+                                                                                                      fontSize: 15,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
                                                                                           ],
                                                                                         ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    // OTPInput(),
-                                                                                    Container(
-                                                                                      height: 40,
-                                                                                      width: 100,
-                                                                                      // color: Colors.red,
-                                                                                      child: TextField(
-                                                                                        focusNode: _focusNode,
-                                                                                        style: TextStyle(
-                                                                                          fontWeight: FontWeight.w600,
-                                                                                        ),
-                                                                                        controller: customRechargeController.pinController,
-                                                                                        maxLength: 4,
-                                                                                        textAlign: TextAlign.center,
-                                                                                        keyboardType: TextInputType.phone,
-                                                                                        decoration: InputDecoration(
-                                                                                          counterText: '',
-                                                                                          focusedBorder: UnderlineInputBorder(
-                                                                                            borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                                                                                          ),
-                                                                                          enabledBorder: UnderlineInputBorder(
-                                                                                            borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                                                                                          ),
-                                                                                          errorBorder: UnderlineInputBorder(
-                                                                                            borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                                                                                          ),
-                                                                                          focusedErrorBorder: UnderlineInputBorder(
-                                                                                            borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-
-                                                                                    SizedBox(
-                                                                                      height: 30,
-                                                                                    ),
-
-                                                                                    Row(
-                                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                                      children: [
-                                                                                        GestureDetector(
-                                                                                          onTap: () {
-                                                                                            Navigator.pop(context);
-                                                                                            customRechargeController.pinController.clear();
-                                                                                          },
-                                                                                          child: Container(
-                                                                                            height: 50,
-                                                                                            width: 120,
-                                                                                            decoration: BoxDecoration(
-                                                                                              border: Border.all(
-                                                                                                width: 1,
-                                                                                                color: Colors.grey,
-                                                                                              ),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                            child: Center(
-                                                                                              child: Text(
-                                                                                                languagesController.tr("CANCEL"),
-                                                                                                style: TextStyle(
-                                                                                                  color: Colors.black,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  fontSize: 15,
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        SizedBox(width: 10),
-                                                                                        GestureDetector(
-                                                                                          onTap: () async {
-                                                                                            if (!customRechargeController.isLoading.value) {
-                                                                                              if (customRechargeController.pinController.text.isEmpty || customRechargeController.pinController.text.length != 4) {
-                                                                                                Fluttertoast.showToast(
-                                                                                                  msg: languagesController.tr("ENTER_YOUR_PIN"),
-                                                                                                  toastLength: Toast.LENGTH_SHORT,
-                                                                                                  gravity: ToastGravity.BOTTOM,
-                                                                                                  timeInSecForIosWeb: 1,
-                                                                                                  backgroundColor: Colors.black,
-                                                                                                  textColor: Colors.white,
-                                                                                                  fontSize: 16.0,
-                                                                                                );
-                                                                                              } else {
-                                                                                                await customRechargeController.verify(context);
-                                                                                                if (customRechargeController.loadsuccess.value == true) {
-                                                                                                  print("recharge Done...........");
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          },
-                                                                                          child: Container(
-                                                                                            height: 60,
-                                                                                            width: 120,
-                                                                                            decoration: BoxDecoration(
-                                                                                              color: Colors.green,
-                                                                                              border: Border.all(
-                                                                                                width: 1,
-                                                                                                color: Colors.grey,
-                                                                                              ),
-                                                                                              borderRadius: BorderRadius.circular(5),
-                                                                                            ),
-                                                                                            child: Center(
-                                                                                              child: Text(
-                                                                                                languagesController.tr("VERIFY"),
-                                                                                                style: TextStyle(
-                                                                                                  color: Colors.white,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  fontSize: 15,
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        )
                                                                                       ],
                                                                                     )
-                                                                                  ],
-                                                                                )
-                                                                              : Center(
-                                                                                  child: Container(
-                                                                                    height: 250,
-                                                                                    width: 250,
-                                                                                    child: Lottie.asset('assets/loties/recharge.json'),
-                                                                                  ),
-                                                                                ),
-                                                                        ),
-                                                                      );
-                                                                    },
+                                                                                  : Center(
+                                                                                      child: Container(
+                                                                                        height: 250,
+                                                                                        width: 250,
+                                                                                        child: Lottie.asset(
+                                                                                          'assets/loties/recharge.json',
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                            ),
+                                                                          );
+                                                                        },
                                                                   ),
                                                                 );
                                                               },
@@ -653,46 +703,45 @@ class _CreditTransferState extends State<CreditTransfer> {
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color:
-                                                                  Colors.green,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          6),
-                                                            ),
+                                                                  color: Colors
+                                                                      .green,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                        6,
+                                                                      ),
+                                                                ),
                                                             child: Center(
                                                               child: Text(
-                                                                languagesController
-                                                                    .tr("CONFIRMATION"),
+                                                                languagesController.tr(
+                                                                  "CONFIRMATION",
+                                                                ),
                                                                 style: TextStyle(
-                                                                    color: Colors
-                                                                        .white),
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        width: 8,
-                                                      ),
+                                                      SizedBox(width: 8),
                                                       Expanded(
                                                         flex: 2,
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(
-                                                                context);
+                                                              context,
+                                                            );
                                                           },
                                                           child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
+                                                            decoration: BoxDecoration(
                                                               color:
                                                                   Colors.white,
                                                               borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          6),
-                                                              border:
-                                                                  Border.all(
+                                                                  BorderRadius.circular(
+                                                                    6,
+                                                                  ),
+                                                              border: Border.all(
                                                                 width: 1,
                                                                 color: Colors
                                                                     .grey
@@ -702,9 +751,10 @@ class _CreditTransferState extends State<CreditTransfer> {
                                                             child: Center(
                                                               child: Text(
                                                                 languagesController
-                                                                    .tr("CANCEL"),
-                                                                style:
-                                                                    TextStyle(
+                                                                    .tr(
+                                                                      "CANCEL",
+                                                                    ),
+                                                                style: TextStyle(
                                                                   color: Colors
                                                                       .black,
                                                                 ),
@@ -732,9 +782,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Container(
                   height: 800,
                   width: screenWidth,
@@ -749,9 +797,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 15,
-                        ),
+                        SizedBox(height: 15),
                         Row(
                           children: [
                             Obx(
@@ -763,14 +809,12 @@ class _CreditTransferState extends State<CreditTransfer> {
                                   color: AppColors.primaryColor,
                                   fontFamily:
                                       languagesController.selectedlan == "Fa"
-                                          ? "Iranfont"
-                                          : "Roboto",
+                                      ? "Iranfont"
+                                      : "Roboto",
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: 10),
                             Expanded(
                               child: Container(
                                 height: 1,
@@ -779,9 +823,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
+                        SizedBox(height: 15),
                         Container(
                           height: 50,
                           width: screenWidth,
@@ -808,9 +850,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           height: 50,
                           width: screenWidth,
@@ -837,9 +877,7 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Container(
                           height: 50,
                           width: screenWidth,
@@ -855,19 +893,15 @@ class _CreditTransferState extends State<CreditTransfer> {
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.search,
-                                  color: Colors.grey.shade600,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
+                                Icon(Icons.search, color: Colors.grey.shade600),
+                                SizedBox(width: 10),
                                 Expanded(
                                   child: TextField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: languagesController
-                                          .tr("SEARCH_BY_PHOENUMBER"),
+                                      hintText: languagesController.tr(
+                                        "SEARCH_BY_PHOENUMBER",
+                                      ),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade600,
                                       ),
@@ -878,22 +912,19 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Row(
                           children: [
                             Expanded(
                               flex: 3,
                               child: DefaultButton(
-                                buttonName:
-                                    languagesController.tr("APPLY_FILTER"),
+                                buttonName: languagesController.tr(
+                                  "APPLY_FILTER",
+                                ),
                                 mycolor: AppColors.primaryColor,
                               ),
                             ),
-                            SizedBox(
-                              width: 8,
-                            ),
+                            SizedBox(width: 8),
                             Expanded(
                               flex: 2,
                               child: Container(
@@ -920,525 +951,517 @@ class _CreditTransferState extends State<CreditTransfer> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Expanded(
-                          child: Obx(
-                            () {
-                              // Ensure expandedIndices matches the length of finalList
-                              if (expandedIndices.length !=
-                                  customhistoryController.finalList.length) {
-                                expandedIndices.assignAll(List.generate(
-                                    customhistoryController.finalList.length,
-                                    (index) => false));
-                              }
+                          child: Obx(() {
+                            // Ensure expandedIndices matches the length of finalList
+                            if (expandedIndices.length !=
+                                customhistoryController.finalList.length) {
+                              expandedIndices.assignAll(
+                                List.generate(
+                                  customhistoryController.finalList.length,
+                                  (index) => false,
+                                ),
+                              );
+                            }
 
-                              return customhistoryController.isLoading.value ==
-                                          false &&
-                                      customhistoryController
-                                          .finalList.isNotEmpty
-                                  ? RefreshIndicator(
-                                      onRefresh: refresh,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: BouncingScrollPhysics(),
-                                        itemCount: customhistoryController
-                                            .finalList.length,
-                                        itemBuilder: (context, index) {
-                                          final data = customhistoryController
-                                              .finalList[index];
+                            return customhistoryController.isLoading.value ==
+                                        false &&
+                                    customhistoryController.finalList.isNotEmpty
+                                ? RefreshIndicator(
+                                    onRefresh: refresh,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: BouncingScrollPhysics(),
+                                      itemCount: customhistoryController
+                                          .finalList
+                                          .length,
+                                      itemBuilder: (context, index) {
+                                        final data = customhistoryController
+                                            .finalList[index];
 
-                                          return Container(
-                                            margin: EdgeInsets.only(bottom: 5),
-                                            width: screenWidth,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Colors.white),
-                                            child: Column(
-                                              children: [
-                                                ExpansionTile(
-                                                  key: Key(index
-                                                      .toString()), // Ensure state retention
-                                                  initiallyExpanded:
-                                                      expandedIndices[index],
-                                                  onExpansionChanged:
-                                                      (isExpanded) {
-                                                    expandedIndices[index] =
-                                                        isExpanded;
-                                                  },
-                                                  tilePadding:
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 10,
-                                                          vertical: 5),
-                                                  title: Row(
-                                                    children: [
-                                                      Container(
-                                                        height: 45,
-                                                        width: 45,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          image:
-                                                              DecorationImage(
-                                                            image: NetworkImage(
-                                                              data
-                                                                  .bundle!
-                                                                  .service!
-                                                                  .company!
-                                                                  .companyLogo
-                                                                  .toString(),
-                                                            ),
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 8),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            data.bundle!
-                                                                .bundleTitle
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            data.rechargebleAccount
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize: 12,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  trailing:
-                                                      expandedIndices[index]
-                                                          ? null
-                                                          : GestureDetector(
-                                                              onTap: () {
-                                                                expandedIndices[
-                                                                        index] =
-                                                                    true;
-                                                              },
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  SizedBox(
-                                                                      width: 5),
-                                                                  Icon(
-                                                                    FontAwesomeIcons
-                                                                        .chevronDown,
-                                                                    size: screenHeight *
-                                                                        0.022,
-                                                                    color: Color(
-                                                                        0xff1890FF),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                languagesController
-                                                                    .tr("TRANSFER_STATUS"),
-                                                              ),
-                                                              Text(
-                                                                data.status.toString() ==
-                                                                        "0"
-                                                                    ? languagesController.tr(
-                                                                        "PENDING")
-                                                                    : data.status.toString() ==
-                                                                            "1"
-                                                                        ? languagesController.tr(
-                                                                            "SUCCESS")
-                                                                        : languagesController
-                                                                            .tr("REJECTED"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 5),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                languagesController
-                                                                    .tr("AMOUNT"),
-                                                              ),
-                                                              Text(
-                                                                "${data.bundle.amount} ${box.read("currency_code")}",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 5),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                languagesController
-                                                                    .tr("DATE"),
-                                                              ),
-                                                              Text(
-                                                                DateFormat(
-                                                                        'yyyy-MM-dd')
-                                                                    .format(
-                                                                  DateTime
-                                                                      .parse(
-                                                                    data.createdAt
-                                                                        .toString(),
-                                                                  ),
-                                                                ),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 5),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                languagesController
-                                                                    .tr("TIME"),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                DateFormat(
-                                                                        'hh:mm a')
-                                                                    .format(
-                                                                        DateTime
-                                                                            .parse(
-                                                                  data.createdAt
-                                                                      .toString(),
-                                                                )),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                        return Container(
+                                          margin: EdgeInsets.only(bottom: 5),
+                                          width: screenWidth,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
                                             ),
-                                          );
-                                        },
-                                      ))
-                                  : customhistoryController.finalList.isEmpty
-                                      ? SizedBox()
-                                      : ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: BouncingScrollPhysics(),
-                                          itemCount: customhistoryController
-                                              .finalList.length,
-                                          itemBuilder: (context, index) {
-                                            final data = customhistoryController
-                                                .finalList[index];
-
-                                            return Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 5),
-                                              width: screenWidth,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Colors.white),
-                                              child: Column(
-                                                children: [
-                                                  ExpansionTile(
-                                                    key: Key(index
-                                                        .toString()), // Ensure state retention
-                                                    initiallyExpanded:
-                                                        expandedIndices[index],
-                                                    onExpansionChanged:
-                                                        (isExpanded) {
+                                            color: Colors.white,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              ExpansionTile(
+                                                key: Key(
+                                                  index.toString(),
+                                                ), // Ensure state retention
+                                                initiallyExpanded:
+                                                    expandedIndices[index],
+                                                onExpansionChanged:
+                                                    (isExpanded) {
                                                       expandedIndices[index] =
                                                           isExpanded;
                                                     },
-                                                    tilePadding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 5),
-                                                    title: Row(
+                                                tilePadding:
+                                                    EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5,
+                                                    ),
+                                                title: Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 45,
+                                                      width: 45,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            data
+                                                                .bundle!
+                                                                .service!
+                                                                .company!
+                                                                .companyLogo
+                                                                .toString(),
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 8),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Container(
-                                                          height: 45,
-                                                          width: 45,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image:
-                                                                  NetworkImage(
-                                                                data
-                                                                    .bundle!
-                                                                    .service!
-                                                                    .company!
-                                                                    .companyLogo
-                                                                    .toString(),
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                            shape:
-                                                                BoxShape.circle,
+                                                        Text(
+                                                          data
+                                                              .bundle!
+                                                              .bundleTitle
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 14,
                                                           ),
                                                         ),
-                                                        SizedBox(width: 8),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                        Text(
+                                                          data.rechargebleAccount
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 12,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                trailing: expandedIndices[index]
+                                                    ? null
+                                                    : GestureDetector(
+                                                        onTap: () {
+                                                          expandedIndices[index] =
+                                                              true;
+                                                        },
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            SizedBox(width: 5),
+                                                            Icon(
+                                                              FontAwesomeIcons
+                                                                  .chevronDown,
+                                                              size:
+                                                                  screenHeight *
+                                                                  0.022,
+                                                              color: Color(
+                                                                0xff1890FF,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                          8.0,
+                                                        ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
                                                             Text(
-                                                              data.bundle!
-                                                                  .bundleTitle
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 14,
+                                                              languagesController.tr(
+                                                                "TRANSFER_STATUS",
                                                               ),
                                                             ),
                                                             Text(
-                                                              data.rechargebleAccount
-                                                                  .toString(),
+                                                              data.status
+                                                                          .toString() ==
+                                                                      "0"
+                                                                  ? languagesController.tr(
+                                                                      "PENDING",
+                                                                    )
+                                                                  : data.status
+                                                                            .toString() ==
+                                                                        "1"
+                                                                  ? languagesController.tr(
+                                                                      "SUCCESS",
+                                                                    )
+                                                                  : languagesController.tr(
+                                                                      "REJECTED",
+                                                                    ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              languagesController
+                                                                  .tr("AMOUNT"),
+                                                            ),
+                                                            Text(
+                                                              "${data.bundle.amount} ${box.read("currency_code")}",
                                                               style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
-                                                                fontSize: 12,
-                                                                color:
-                                                                    Colors.grey,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              languagesController
+                                                                  .tr("DATE"),
+                                                            ),
+                                                            Text(
+                                                              DateFormat(
+                                                                'yyyy-MM-dd',
+                                                              ).format(
+                                                                DateTime.parse(
+                                                                  data.createdAt
+                                                                      .toString(),
+                                                                ),
+                                                              ),
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              languagesController
+                                                                  .tr("TIME"),
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              DateFormat(
+                                                                'hh:mm a',
+                                                              ).format(
+                                                                DateTime.parse(
+                                                                  data.createdAt
+                                                                      .toString(),
+                                                                ),
+                                                              ),
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
                                                               ),
                                                             ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    trailing:
-                                                        expandedIndices[index]
-                                                            ? null
-                                                            : GestureDetector(
-                                                                onTap: () {
-                                                                  expandedIndices[
-                                                                          index] =
-                                                                      true;
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    SizedBox(
-                                                                        width:
-                                                                            5),
-                                                                    Icon(
-                                                                      FontAwesomeIcons
-                                                                          .chevronDown,
-                                                                      size: screenHeight *
-                                                                          0.022,
-                                                                      color: Color(
-                                                                          0xff1890FF),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : customhistoryController.finalList.isEmpty
+                                ? SizedBox()
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: customhistoryController
+                                        .finalList
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      final data = customhistoryController
+                                          .finalList[index];
+
+                                      return Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        width: screenWidth,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            ExpansionTile(
+                                              key: Key(
+                                                index.toString(),
+                                              ), // Ensure state retention
+                                              initiallyExpanded:
+                                                  expandedIndices[index],
+                                              onExpansionChanged: (isExpanded) {
+                                                expandedIndices[index] =
+                                                    isExpanded;
+                                              },
+                                              tilePadding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 5,
+                                              ),
+                                              title: Row(
+                                                children: [
+                                                  Container(
+                                                    height: 45,
+                                                    width: 45,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                          data
+                                                              .bundle!
+                                                              .service!
+                                                              .company!
+                                                              .companyLogo
+                                                              .toString(),
+                                                        ),
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  languagesController
-                                                                      .tr("TRANSFER_STATUS"),
-                                                                ),
-                                                                Text(
-                                                                  data.status.toString() ==
-                                                                          "0"
-                                                                      ? languagesController.tr(
-                                                                          "PENDING")
-                                                                      : data.status.toString() ==
-                                                                              "1"
-                                                                          ? languagesController.tr(
-                                                                              "SUCCESS")
-                                                                          : languagesController
-                                                                              .tr("REJECTED"),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: 5),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  languagesController
-                                                                      .tr("AMOUNT"),
-                                                                ),
-                                                                Text(
-                                                                  "${data.bundle.amount} ${box.read("currency_code")}",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: 5),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  languagesController
-                                                                      .tr("DATE"),
-                                                                ),
-                                                                Text(
-                                                                  DateFormat(
-                                                                          'yyyy-MM-dd')
-                                                                      .format(
-                                                                    DateTime
-                                                                        .parse(
-                                                                      data.createdAt
-                                                                          .toString(),
-                                                                    ),
-                                                                  ),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: 5),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  languagesController
-                                                                      .tr("TIME"),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  DateFormat(
-                                                                          'hh:mm a')
-                                                                      .format(DateTime
-                                                                          .parse(
-                                                                    data.createdAt
-                                                                        .toString(),
-                                                                  )),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ],
+                                                      Text(
+                                                        data.bundle!.bundleTitle
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        data.rechargebleAccount
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 12,
+                                                          color: Colors.grey,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 ],
                                               ),
-                                            );
-                                          },
-                                        );
-                            },
-                          ),
+                                              trailing: expandedIndices[index]
+                                                  ? null
+                                                  : GestureDetector(
+                                                      onTap: () {
+                                                        expandedIndices[index] =
+                                                            true;
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          SizedBox(width: 5),
+                                                          Icon(
+                                                            FontAwesomeIcons
+                                                                .chevronDown,
+                                                            size:
+                                                                screenHeight *
+                                                                0.022,
+                                                            color: Color(
+                                                              0xff1890FF,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    8.0,
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            languagesController.tr(
+                                                              "TRANSFER_STATUS",
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            data.status
+                                                                        .toString() ==
+                                                                    "0"
+                                                                ? languagesController
+                                                                      .tr(
+                                                                        "PENDING",
+                                                                      )
+                                                                : data.status
+                                                                          .toString() ==
+                                                                      "1"
+                                                                ? languagesController
+                                                                      .tr(
+                                                                        "SUCCESS",
+                                                                      )
+                                                                : languagesController
+                                                                      .tr(
+                                                                        "REJECTED",
+                                                                      ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            languagesController
+                                                                .tr("AMOUNT"),
+                                                          ),
+                                                          Text(
+                                                            "${data.bundle.amount} ${box.read("currency_code")}",
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            languagesController
+                                                                .tr("DATE"),
+                                                          ),
+                                                          Text(
+                                                            DateFormat(
+                                                              'yyyy-MM-dd',
+                                                            ).format(
+                                                              DateTime.parse(
+                                                                data.createdAt
+                                                                    .toString(),
+                                                              ),
+                                                            ),
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            languagesController
+                                                                .tr("TIME"),
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            DateFormat(
+                                                              'hh:mm a',
+                                                            ).format(
+                                                              DateTime.parse(
+                                                                data.createdAt
+                                                                    .toString(),
+                                                              ),
+                                                            ),
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                          }),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: screenWidth,
-                ),
+                Container(height: 60, width: screenWidth),
               ],
             ),
           ),
